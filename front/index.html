@@ -5,6 +5,14 @@
     <title>Smart Farm</title>
     <link href="./css/bootstrap.min.css"rel="stylesheet" />
     <script src="./js/d3.v7.min.js"></script>
+    <script src="./js/clock.js"></script>
+    <script src="./js/chart-area-demo.js"></script>
+    <!-- Page level custom scripts -->
+    <script src="./js/chart.js/Chart.js"></script>
+    <script src="./js/chart.js/Chart.bundle.js"></script>
+    <script src="./js/chart.js/Chart.bundle.min.js"></script>
+    <script src="./js/chart.js/Chart.min.js"></script>
+
     <link rel="shortcut icon" href="./icon/favicon.ico"/>
     <title>Smart Farm</title>
   </head>
@@ -14,105 +22,141 @@
     </div>
   </nav>
   <body>
-    <script>
-        const width = 500;
-const height = 300;
-const margin = {top: 40, right: 40, bottom: 40, left: 40};
-const padding = 30;
-const data = [
-  {date: new Date('2018-01-01'), value: 10},
-  {date: new Date('2018-01-02'), value: 20},
-  {date: new Date('2018-01-03'), value: 30},
-  {date: new Date('2018-01-04'), value: 25},
-  {date: new Date('2018-01-05'), value: 35},
-  {date: new Date('2018-01-06'), value: 45},
-  {date: new Date('2018-01-07'), value: 60},
-  {date: new Date('2018-01-08'), value: 50}
-];
- 
-const x = d3.scaleTime()
-  .domain(d3.extent(data, d => d.date))
-  .range([margin.left + padding, width - padding]);
- 
-const y = d3.scaleLinear()
-  .domain([0, d3.max(data, d => d.value)]).nice()
-  .range([height - margin.bottom, margin.top]);
- 
-const xAxis = g => g
-  .attr("transform", `translate(0,${height - margin.bottom})`)
-  .call(d3.axisBottom(x).ticks(width / 90).tickSizeOuter(0))
-  .call(g => g.select('.domain').remove())
-  .call(g => g.selectAll('line').remove());
- 
-const yAxis = g => g
-  .attr("transform", `translate(${margin.left},0)`)
-  .call(d3.axisLeft(y))
-  .call(g => g.select('.domain').remove())
-  .call(g => g.selectAll('line')
-    .attr('x2', width)
-    .style('stroke', '#ddd'))
- 
-const line = d3.line()
-  .defined(d => !isNaN(d.value))
-  .x(d => x(d.date))
-  .y(d => y(d.value));
- 
-const area = d3.area()
-  .x(d => x(d.date))
-  .y0(y(0))
-  .y1(d => y(d.value));
- 
-const svg = d3.select('body').append('svg').style('width', width).style('height', height);
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+      <!-- Page Heading -->
+      <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800" style="font-weight: bold; padding: 20px 1px 2px 3px;">Dashboard</h1>
+      </div>
 
-svg.append('g').call(xAxis);
+      <!-- Content Row -->
+      <div class="row">
 
-svg.append('g').call(yAxis);
+          <!-- 시간 Card -->
+          <div class="col-xl-3 col-md-6 mb-4">
+              <div class="card border-left-primary shadow h-100 py-2">
+                  <div class="card-body">
+                      <div class="row no-gutters align-items-center">
+                          <div class="col mr-2">
+                              <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">시간</div>
+                                  <body onload="showClock()">
+                                    <div id="divClock" class="clock" style="font-weight: bold; font-size: 1.5em;"></div>
+                                </body>
+                          </div>
+                          <div class="col-auto">
+                              <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
 
-const grad = svg.append("defs").append("linearGradient")
-  .attr("id", "grad")
-  .attr("x1", "0%")
-  .attr("x2", "0%")
-  .attr("y1", "0%")
-  .attr("y2", "100%");
+          <!-- 온도 Card -->
+          <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-info shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">온도
+                            </div>
+                            <div class="row no-gutters align-items-center">
+                                <div class="col-auto">
+                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">20도</div>
+                                </div>
+                                <div class="col">
+                                    <div class="progress progress-sm mr-2">
+                                        <div class="progress-bar bg-danger" role="progressbar"
+                                            style="width: 20%" aria-valuenow="20" aria-valuemin="0"
+                                            aria-valuemax="100"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-grad.append("stop")
-  .attr("offset", "0%")
-  .style("stop-color", "#7ab8aa")
-  .style("stop-opacity", 1);
+          <!-- 습도 Card -->
+          <div class="col-xl-3 col-md-6 mb-4">
+              <div class="card border-left-info shadow h-100 py-2">
+                  <div class="card-body">
+                      <div class="row no-gutters align-items-center">
+                          <div class="col mr-2">
+                              <div class="text-xs font-weight-bold text-info text-uppercase mb-1">습도
+                              </div>
+                              <div class="row no-gutters align-items-center">
+                                  <div class="col-auto">
+                                      <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>
+                                  </div>
+                                  <div class="col">
+                                      <div class="progress progress-sm mr-2">
+                                          <div class="progress-bar bg-info" role="progressbar"
+                                              style="width: 50%" aria-valuenow="50" aria-valuemin="0"
+                                              aria-valuemax="100"></div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="col-auto">
+                              <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
 
-grad.append("stop")
-  .attr("offset", "100%")
-  .style("stop-color", "#7ab8aa")
-   .style("stop-opacity", 0.4);
+          <!-- 빛 여부 Card -->
+          <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-info shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Light
+                            </div>
+                            <div class="row no-gutters align-items-center">
+                                <div class="col-auto">
+                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">ON</div>
+                                </div>
+                                <div class="col">
+                                    <div class="progress progress-sm mr-2">
+                                        <div class="progress-bar bg-warning" role="progressbar"
+                                            style="width: 100%" aria-valuenow="100" aria-valuemin="0"
+                                            aria-valuemax="100"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+      <!-- Content Row -->
+    </div>
 
-svg.append("path")
-  .datum(data)
-	.style("fill", "url(#grad)")
-  .attr("d", line)
-  .attr("d", area);
-  
-svg.append("path")
-  .datum(data)
-  .attr("fill", "none")
-  .attr("stroke", "#add7a8")
-  .attr("stroke-width", 6)
-  .attr("stroke-linejoin", "round")
-  .attr("stroke-linecap", "round")
-  .attr("d", line);
-  
-svg.append("g")
-  .selectAll("dot")
-  .data(data)
-  .enter()
-  .append("circle")
-    .attr("cx", d => x(d.date))
-    .attr("cy", d => y(d.value))
-    .attr("r", 5)
-    .attr("stroke", '#5487b1')
-    .attr("stroke-width", 4)
-    .attr("fill", "white")
-
-svg.node();
-    </script>
+    <div class="row">
+      <div class="col-xl-8 col-lg-7">
+          <!-- Area Chart -->
+          <div class="card shadow mb-4">
+              <div class="card-header py-3">
+                  <h6 class="m-0 font-weight-bold text-primary">온도 그래프</h6>
+              </div>
+              <div class="card-body">
+                  <div class="chart-area">
+                      <canvas id="myAreaChart"></canvas>
+                  </div>
+                  <hr>
+                  수집상태 : OFF <button>수집 ON/OF</button>
+              </div>
+          </div>
+      </div>
+    </div>
   </body>
 </html>

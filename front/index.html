@@ -42,7 +42,7 @@
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">온도
+                                <div class="text-xs font-weight-bold text-danger mb-1">온도
                                 </div>
                                 <div class="row no-gutters align-items-center">
                                     <div class="col-auto">
@@ -70,7 +70,7 @@
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-info text-uppercase mb-1">습도
+                                <div class="text-xs font-weight-bold text-info text-info mb-1">습도
                                 </div>
                                 <div class="row no-gutters align-items-center">
                                     <div class="col-auto">
@@ -98,9 +98,9 @@
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">토양 
+                                <div class="text-xs font-weight-bold text-success mb-1">토양 수분
                                 </div>
-                                <h3><span class="badge bg-danger">물 부족</span></h3>
+                                <h3><span class="badge bg-danger" style="color:white">물 부족</span></h3>
                             </div>
                         </div>
                     </div>
@@ -113,7 +113,7 @@
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Light
+                                <div class="text-xs font-weight-bold text-warning mb-1">Light
                                 </div>
                                 <div class="row no-gutters align-items-center">
                                     <div class="col-auto">
@@ -138,12 +138,13 @@
         <!-- Content Row -->
     </div>
 
-    <div class="row">
-        <div class="col-xl-8 col-lg-7">
+<div class="card-columns" style="padding: 20px">
+    <!-- 온도 그래프 Card -->
+    <div class="row" style="padding: 20px">
             <!-- Area Chart -->
-            <div class="card shadow mb-4">
+            <div class="card shadow mb-4 border-primary">
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">온도 그래프</h6>
+                    <h6 class="m-0 font-weight-bold text-danger">온도 그래프</h6>
                 </div>
                 <div class="card-body">
                     <div class="chart-area">
@@ -152,8 +153,40 @@
                     <hr>
                 </div>
             </div>
-        </div>
     </div>
+
+    <!-- 습도 그래프 Card -->
+    <div class="row" style="padding: 20px">
+            <!-- Area Chart -->
+            <div class="card shadow mb-4 border-primary">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-info">습도 그래프</h6>
+                </div>
+                <div class="card-body">
+                    <div class="chart-area">
+                        <canvas id="myAreaChart"></canvas>
+                    </div>
+                    <hr>
+                </div>
+            </div>
+    </div>
+
+    <!-- 토양 수분 그래프 Card -->
+    <div class="row" style="padding: 20px">
+            <!-- Area Chart -->
+            <div class="card shadow mb-4 border-danger">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-success">토양 수분 그래프</h6>
+                </div>
+                <div class="card-body">
+                    <div class="chart-area">
+                        <canvas id="myAreaChart"></canvas>
+                    </div>
+                    <hr>
+                </div>
+            </div>
+    </div>
+</div>
 </body>
 
 </html>

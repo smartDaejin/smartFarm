@@ -37,6 +37,7 @@ void soil()
     while (400 >= analogRead(BASE + 2))
     {
         digitalWrite(input_p2, 1);
+        break;
     }
     if (400 >= analogRead(BASE + 2))
     {

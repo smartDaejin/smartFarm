@@ -1,12 +1,13 @@
 /*
- *  smart farm 센서 정보 수집 및 제어 프로그램
+ *  smart farm 센서 정보 수집 및 제어 서버 프로그램
  *
  * 	목표:
- *		smart farm에 사용되는 센서 정보를 수집하고 센서를 제어한다.
+ *		smart farm에 사용되는 센서 정보를 수집하고 센서를 제어하는 웹 서버를 구성한다.
  *	구성:
  *		센서 모듈로부터 온도, 습도, 토양 습도 데이터를 반복적으로 수집
  *  	특정 조건에 워터 펌프 센서 작동
  *  	팬쿨러는 계속 실행
+ *      웹 서버를 통한 센서 수집 및 정지를 제어한다.
  *	작성자:
  *		서민원	<20202170>
  *		조윤준	<20202177>
@@ -21,6 +22,16 @@
 #include <stdint.h>
 #include <string.h>
 #include <signal.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <errno.h>
+#include <pthread.h>
+#include <termios.h>
+#include <sys/ioctl.h>
+#include <sys/socket.h>
+#include <arpa/inet.h>
+#include <netinet/in.h>
+#include <linux/input.h>
 
 #define BASE 100
 #define SPI_CHAN 0
@@ -35,6 +46,36 @@
 #define input_f2 29 /* 팬 기본값 0 작동 1 정지 */
 
 int DHT11[5] = {0, 0, 0, 0, 0};
+
+
+/*
+ *  all_stop_func - 모든 센서 종료 함수
+ *
+ *  모든 센서 동작을 종료합니다.
+ */
+
+void all_stop_func()
+{
+    printf("wiringPiSPISetup return=%d\n", wiringPiSPISetup(0, 500000));    /* SPI 채널번호 (0 ~ 2), 속도 */
+	mcp3004Setup(BASE, SPI_CHAN);
+
+    pinMode( input_p1, OUTPUT );    /* 워터펌프 */
+    pinMode( input_p2, OUTPUT );
+
+    pinMode( input_f1, OUTPUT );    /* 쿨링팬 */
+    pinMode( input_f2, OUTPUT );
+    
+    pinMode( DHTPIN, INPUT );	
+
+
+    digitalWrite(input_f1, 1);  /* 기본값 지정 1, 1 멈춤 1, 0 작동 */
+    digitalWrite(input_f2, 1);  /* 팬정지 */
+
+    digitalWrite(input_p1, 1);  /* 기본값 지정 1, 1 멈춤 1, 0 작동 */
+    digitalWrite(input_p2, 1);  /* 펌프정지 */
+    digitalWrite( DHTPIN, LOW );	
+    printf("종료\n");
+}
 
 /*
  *  run_water_pump - 워터펌프 작동 함수

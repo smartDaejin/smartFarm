@@ -107,24 +107,27 @@
                 </div>
             </div>
 
-            <!-- 빛 여부 Card -->
+            <!-- Sensor 제어 Card -->
             <div class="col-xl-3 col-md-6 mb-4">
                 <div class="card border-left-info shadow h-100 py-2">
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-warning mb-1">Light
+                                <div class="text-xs font-weight-bold text-primary mb-1">Sensor 제어
                                 </div>
-                                <div class="row no-gutters align-items-center">
-                                    <div class="col-auto">
-                                        <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">ON</div>
-                                    </div>
-                                    <div class="col">
-                                        <div class="progress progress-sm mr-2">
-                                            <div class="progress-bar bg-warning" role="progressbar" style="width: 100%"
-                                                aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-                                        </div>
-                                    </div>
+                                <form action="control.html" method="GET" onSubmit="document.reload()">
+                                    <table>
+                                        <tr>
+                                            <td>Sensor</td>
+                                            <td><input type="radio" name="Sensor" value="On"/>실행</td>
+                                            <td><input type="radio" name="Sensor" value="Off"/>종료</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Submit</td>
+                                            <td><input type="submit" value="Submit"/></td>
+                                        </tr>
+                                    </table>
+                                </form>
                                 </div>
                             </div>
                         </div>
@@ -133,32 +136,6 @@
             </div>
         </div>
         <!-- Content Row -->
-    </div>
-    <div class="col-xl-3 col-md-6 mb-4">
-        <div class="card border-left-info shadow h-100 py-2">
-            <div class="card-body">
-                <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-primary mb-1">Sensor 제어
-                        </div>
-                        <form action="control.html" method="GET" onSubmit="document.reload()">
-                            <table>
-                                <tr>
-                                    <td>Sensor</td>
-                                    <td><input type="radio" name="Sensor" value="On"/>실행</td>
-                                    <td><input type="radio" name="Sensor" value="Off"/>종료</td>
-                                </tr>
-                                <tr>
-                                    <td>Submit</td>
-                                    <td><input type="submit" value="Submit"/></td>
-                                </tr>
-                            </table>
-                        </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 </body>
 

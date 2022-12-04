@@ -2,13 +2,13 @@
 <html lang="ko">
 
 <head>
-    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>Smart Farm</title>
-    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
-    <script src="{{ url_for('static', filename='js/date-clock.js') }}" > </script>
-    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}" > </script>
+    <link rel="stylesheet" href="./css/bootstrap.min.css" />
+    <script src="./js/date-clock.js"></script>
+    <script src="./js/bootstrap.min.js"></script>
 
-    <link rel="shortcut icon" href="{{ url_for('static', filename='icon/favicon.ico') }}">
+    <link rel="shortcut icon" href="./icon/favicon.ico" />
     <title>Smart Farm</title>
 </head>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -127,9 +127,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-auto">
-                                <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -137,8 +134,32 @@
         </div>
         <!-- Content Row -->
     </div>
-
-</div>
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-info shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary mb-1">Sensor 제어
+                        </div>
+                        <form action="control.html" method="GET" onSubmit="document.reload()">
+                            <table>
+                                <tr>
+                                    <td>Sensor</td>
+                                    <td><input type="radio" name="Sensor" value="On"/>실행</td>
+                                    <td><input type="radio" name="Sensor" value="Off"/>종료</td>
+                                </tr>
+                                <tr>
+                                    <td>Submit</td>
+                                    <td><input type="submit" value="Submit"/></td>
+                                </tr>
+                            </table>
+                        </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>

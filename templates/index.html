@@ -4,11 +4,11 @@
 <head>
     <meta charset="utf-8">
     <title>Smart Farm</title>
-    <link rel="stylesheet" href="./css/bootstrap.min.css" />
-    <script src="./js/date-clock.js"></script>
-    <script src="./js/bootstrap.min.js"></script>
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+    <script src="{{ url_for('static', filename='js/date-clock.js') }}" > </script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}" > </script>
 
-    <link rel="shortcut icon" href="./icon/favicon.ico" />
+    <link rel="shortcut icon" href="{{ url_for('static', filename='icon/favicon.ico') }}">
     <title>Smart Farm</title>
 </head>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -138,54 +138,6 @@
         <!-- Content Row -->
     </div>
 
-<div class="card-columns" style="padding: 20px">
-    <!-- 온도 그래프 Card -->
-    <div class="row" style="padding: 20px">
-            <!-- Area Chart -->
-            <div class="card shadow mb-4 border-primary">
-                <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-danger">온도 그래프</h6>
-                </div>
-                <div class="card-body">
-                    <div class="chart-area">
-                        <canvas id="myAreaChart"></canvas>
-                    </div>
-                    <hr>
-                </div>
-            </div>
-    </div>
-
-    <!-- 습도 그래프 Card -->
-    <div class="row" style="padding: 20px">
-            <!-- Area Chart -->
-            <div class="card shadow mb-4 border-primary">
-                <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-info">습도 그래프</h6>
-                </div>
-                <div class="card-body">
-                    <div class="chart-area">
-                        <canvas id="myAreaChart"></canvas>
-                    </div>
-                    <hr>
-                </div>
-            </div>
-    </div>
-
-    <!-- 토양 수분 그래프 Card -->
-    <div class="row" style="padding: 20px">
-            <!-- Area Chart -->
-            <div class="card shadow mb-4 border-danger">
-                <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-success">토양 수분 그래프</h6>
-                </div>
-                <div class="card-body">
-                    <div class="chart-area">
-                        <canvas id="myAreaChart"></canvas>
-                    </div>
-                    <hr>
-                </div>
-            </div>
-    </div>
 </div>
 </body>
 

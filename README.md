@@ -41,3 +41,5 @@ $ sudo cp ws.cgi /var/www/html/cgi-bin
 
 ## Go Web Site
 `http://<Server IP>:80`
+
+![page](page_screenshot.jpg)

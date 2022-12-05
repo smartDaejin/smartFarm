@@ -122,8 +122,10 @@ void collection_senser_start()
     digitalWrite(input_p1, 1);  /* 기본값 지정 1, 1 멈춤 1, 0 작동 */
     digitalWrite(input_p2, 1);
 
-    while (1)   /* 센서 작동 */
-    {
+    DHT11[0] = DHT11[1] = DHT11[2] = DHT11[3] = DHT11[4] = 0;
+
+    /* 센서 작동 */
+    do  {
         uint8_t laststate = HIGH;
         uint8_t counter = 0;
         uint8_t j = 0, i;
@@ -181,7 +183,7 @@ void collection_senser_start()
             run_water_pump();
         }
         delay(2000);
-    }
+    } while((DHT11[0] && analogRead(BASE + 2) )!= 0);
 }
 
 /*
@@ -288,18 +290,18 @@ void *clnt_connection(void *arg)
     strcpy(file_name, strtok(NULL, " /"));  /* 요청 라인에서 경로(path)를 가져온다. */
     printf("file_name : %s\n", file_name);
     if(strstr(file_name, "?") != NULL) {
-        // LED 버튼을 누르고 submit을 했다면 ?led=On 혹은 ?led=Off라고 발송된다
+        /* Sensor 버튼을 누르고 submit을 했다면 Sensor=On 혹은 Sensor=Off라고 발송된다 */
         char opt[8], var[8];
         strtok(file_name, "?");
-        // led와 On/Off 분리
+        /* Sensor와 On/Off 분리 */
         strcpy(opt, strtok(NULL, "="));
         strcpy(var, strtok(NULL, "="));
         
         printf("%s=%s\n", opt, var);
-        if(!strcmp(opt, "led") && !strcmp(var, "On")) {
-            ledControl(LED, 1);
-        } else if(!strcmp(opt, "led") && !strcmp(var, "Off")) {
-            ledControl(LED, 0);   
+        if(!strcmp(opt, "Sensor") && !strcmp(var, "On")) {
+            all_sensor_stop();
+        } else if(!strcmp(opt, "Sensor") && !strcmp(var, "Off")) {
+            collection_senser_start();  
         }
     }
     

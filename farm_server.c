@@ -49,7 +49,6 @@ static void 	*clnt_connection(void *arg);
 
 int DHT11[5] = {0, 0, 0, 0, 0};
 
-
 /*
  *  all_stop_func - 모든 센서 종료 함수
  *
@@ -192,7 +191,7 @@ void collection_senser_start()
         printf("{\"temperature\":%d,\"humidity\":%d,\"toil\":%d}", temperatureData, humidityData, toilData);
     } while((DHT11[0] && analogRead(BASE + 2) )== 0);
 
-    FILE* pFile = fopen("data.json", "w");
+    FILE* pFile = fopen("//var//www//html//data.json", "w");
     fprintf(pFile, "{\"temperature\":%d,\"humidity\":%d,\"toil\":%d}", temperatureData, humidityData, toilData);        
     fclose(pFile);
 }
@@ -265,6 +264,10 @@ void sendError(FILE* fp)
  */
 int main(int argc, char **argv)
 {
+    if (wiringPiSetup() == -1)
+    {
+        exit(1);
+    } 
     int serv_sock;
     pthread_t tid;
     struct sockaddr_in serv_addr, clnt_addr;
@@ -371,6 +374,7 @@ void *clnt_connection(void *arg)
                 exit(1);
             } 
             mcp3004Setup(BASE, SPI_CHAN);
+            //collection_senser_start();  
             while(1)    {   /*  계속 센서 수집하기 위해 무한 반복 */
                 collection_senser_start();  
             } 

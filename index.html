@@ -10,6 +10,9 @@
     <script type="text/javascript" src="./js/bootstrap.min.js"></script>
     <script type="text/javascript" src="./data.json"></script>
 
+    <script language='javascript'> 
+        window.setTimeout('window.location.reload()',6000); //6초마다 새로고침
+    </script>
 
     <script>
         fetch("data.json")
@@ -159,19 +162,16 @@
                             <div class="col mr-2">
                                 <div class="text-xs font-weight-bold text-primary mb-1">Sensor 제어
                                 </div>
-                                <form action="index.html" method="GET" onSubmit="document.reload()">
                                     <table>
                                         <tr>
-                                            <td>Sensor</td>
-                                            <td><input type="radio" name="Sensor" value="On" />실행</td>
-                                            <td><input type="radio" name="Sensor" value="Off" />종료</td>
+                                            <button onclick="location.href='http://172.30.1.35:8003/index.html?Sensor=On'" type="button">
+                                                센서 실행</button>
                                         </tr>
                                         <tr>
-                                            <td>Submit</td>
-                                            <td><input type="submit" value="Submit" /></td>
+                                            <button onclick="location.href='http://172.30.1.35:8003/index.html?Sensor=Off'" type="button">
+                                                센서 종료</button>
                                         </tr>
                                     </table>
-                                </form>
                             </div>
                         </div>
                     </div>

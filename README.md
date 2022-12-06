@@ -35,7 +35,8 @@ ScriptAlias /cgi-bin/ /var/www/html/cgi-bin/
 
 ## Server
 ```bash
-$ g++ -o ws.cgi farm_server.c -lwiringPi
+$ gcc -o test farm_server.c -lwiringPi -pthread
+$ chmod 755 ./farm_server
 $ sudo cp ws.cgi /var/www/html/cgi-bin
 ```
 

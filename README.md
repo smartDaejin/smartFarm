@@ -82,6 +82,8 @@ $ sudo cp ws.cgi /var/www/html/cgi-bin
     - MISO (Master In, Slave Out) : 슬레이브에서 마스터로 데이터 전송
     - SCK (Serial Clock) : 마스터에서 슬레이브로 클락 전송
     - SS (Slave Select) : 데이터를 송수신할 슬레이브 선택 → 마스터가 지정
+
+
 ![기본적인 SPI통신 방식](./ReadMe_img/SPI_three_slaves.svg)
 
 | 기본적인 SPI통신 방식
